@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BuildingTaskController;
+use App\Http\Controllers\Api\V1\TaskCommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,6 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     });
     Route::get('/buildings/{building}/tasks', [BuildingTaskController::class, 'index']);
     Route::post('/buildings/{building}/tasks', [BuildingTaskController::class, 'store']);
+    Route::post('/tasks/{task}/comments', [TaskCommentController::class, 'store']);
 });
 

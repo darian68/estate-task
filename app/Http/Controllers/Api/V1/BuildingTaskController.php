@@ -42,9 +42,10 @@ class BuildingTaskController extends Controller
     {
         $data =  $request->validated();
         $task = $building->tasks()->create([
-            ...$request->validated(),
+            ...$data,
             'created_by' => $request->user()->id,
         ]);
+        $task->load('creator');
         return new TaskResource($task);
     }
 }
