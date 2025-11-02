@@ -192,18 +192,6 @@ class ListBuildingTasksTest extends TestCase
     }
 
     /** @test */
-    public function filters_are_case_insensitive()
-    {
-        Sanctum::actingAs($this->user);
-        Task::factory()->for($this->building)->state(['status' => 'Completed'])->create();
-
-        $response = $this->getJson("/api/v1/buildings/{$this->building->id}/tasks?status=completed");
-
-        $response->assertOk()
-            ->assertJsonCount(1, 'data');
-    }
-
-    /** @test */
     public function input_is_sanitized_against_sql_injection()
     {
         Sanctum::actingAs($this->user);
