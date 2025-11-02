@@ -112,11 +112,13 @@ Authorization: Bearer <token>
 
 Optional filters:
 
-* `status` (Enum: TaskStatus)
-* `assigned_to` (integer, user ID)
-* `created_from` (date)
-* `created_to` (date, after or equal to `created_from`)
-* `timezone` (valid timezone string)
+| Parameter | Type | Description |
+|----------|------|-------------|
+| status | enum(`Open`, `In Progress`, `Completed`, `Rejected`) | Filter by task status |
+| assigned_to | integer | Filter by assigned user ID |
+| created_from | date (YYYY-MM-DD) | Filter by creation start date |
+| created_to | date (YYYY-MM-DD) | Filter by creation end date |
+| timezone | string | Valid timezone name |
 
 ### Create a new task
 
@@ -133,6 +135,13 @@ Content-Type: application/json
   "due_at": "2025-11-05 10:00:00"
 }
 ```
+| Field | Type | Required | Description |
+|------|------|:--------:|-------------|
+| title | string | ✅ | Title of the task |
+| description | string | ❌ | Task details |
+| assigned_to | integer | ❌ | ID of responsible user |
+| status | enum | ❌ | Task status |
+| due_at | datetime | ❌ | Deadline (optional) |
 
 ### Add a comment to a task
 
@@ -145,6 +154,9 @@ Content-Type: application/json
   "body": "Comment body"
 }
 ```
+| Field | Type | Required | Description |
+|------|------|:--------:|-------------|
+| body | string | ✅ | Content of the comment |
 
 ---
 
