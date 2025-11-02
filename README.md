@@ -78,6 +78,7 @@ $building = Building::create([
     'user_id' => $user->id,
 ]);
 
+$building;
 ```
 
 You can now log in with the admin account and use the created building for testing.
