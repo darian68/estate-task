@@ -45,7 +45,7 @@ class BuildingTaskController extends Controller
             ...$data,
             'created_by' => $request->user()->id,
         ]);
-        $task->load('creator');
+        $task->load(['assignee', 'creator']);
         return new TaskResource($task);
     }
 }

@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return response()->json(['message' => 'Hey, what are you doing here?'], 401);
+    return response()->json(['message' => 'Hey, how are you today?'], 401);
 });

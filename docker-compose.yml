@@ -1,0 +1,79 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: estate-task-app
+    container_name: estate-task-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      # Optional: cache vendor to avoid reinstalling
+      # - vendor-data:/var/www/vendor
+    networks:
+      - laravel
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: estate-task-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - laravel
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: estate-task-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: password
+    volumes:
+      - laravel-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: estate-task-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8089:80"
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    container_name: estate-task-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
+
+volumes:
+  laravel-data:
+    driver: local
