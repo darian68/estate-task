@@ -25,5 +25,6 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
     Route::get('/buildings/{building}/tasks', [BuildingTaskController::class, 'index']);
+    Route::post('/buildings/{building}/tasks', [BuildingTaskController::class, 'store']);
 });
 
