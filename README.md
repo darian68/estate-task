@@ -140,7 +140,7 @@ Content-Type: application/json
 | title | string | ✅ | Title of the task |
 | description | string | ❌ | Task details |
 | assigned_to | integer | ❌ | ID of responsible user |
-| status | enum | ❌ | Task status |
+| status | enum(Open, In Progress, Completed, Rejected) | ❌ | Task status |
 | due_at | datetime | ❌ | Deadline (optional) |
 
 ### Add a comment to a task
@@ -156,7 +156,7 @@ Content-Type: application/json
 ```
 | Field | Type | Required | Description |
 |------|------|:--------:|-------------|
-| body | string | ✅ | Content of the comment |
+| body | string | ✅ | Content of the comment (max:1000) |
 
 ---
 
