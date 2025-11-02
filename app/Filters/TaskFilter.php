@@ -61,7 +61,9 @@ class TaskFilter
         }
 
         if (!empty($this->filters['status'])) {
-            $query->where("{$table}.status", $this->filters['status']);
+            //$query->where("{$table}.status", $this->filters['status']);
+            $status = strtolower($this->filters['status']);
+            $query->whereRaw("LOWER({$table}.status) = ?", [$status]);
         }
 
         return $query;

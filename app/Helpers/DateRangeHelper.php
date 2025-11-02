@@ -3,35 +3,57 @@
 use Carbon\Carbon;
 
 /**
- * Convert client-side date to start of day in UTC timezone.
+ * Convert a client date (in any timezone) to the UTC start of that day.
  *
- * @param string      $date
- * @param string|null $clientTz  If null, assumed to already be UTC
+ * @param  string  $date      The date string (e.g. '2025-11-01')
+ * @param  string  $timezone  The client's timezone (default: 'UTC')
+ * @return \Carbon\Carbon     The UTC datetime at the start of the given day
+ *
+ * @throws \InvalidArgumentException If the date or timezone is invalid
  */
 if (! function_exists('startDateToUtc')) {
-    function startDateToUtc(string $date, ?string $clientTz = null): Carbon
+    function startDateToUtc(string $date, string $timezone = 'UTC'): Carbon
     {
-        $tz = $clientTz ?? 'UTC';
+        try {
+            $tz = new DateTimeZone($timezone);
+        } catch (\Exception $e) {
+            throw new InvalidArgumentException('Invalid timezone: ' . $timezone);
+        }
 
-        return Carbon::parse($date, $tz)
-            ->startOfDay()
-            ->setTimezone('UTC');
+        try {
+            $dt = new Carbon($date, $tz);
+        } catch (\Exception $e) {
+            throw new InvalidArgumentException('Invalid date: ' . $date);
+        }
+
+        return $dt->startOfDay()->setTimezone('UTC');
     }
 }
 
 /**
- * Convert client-side date to end of day in UTC timezone.
+ * Convert the end of a given client date to UTC.
  *
- * @param string      $date
- * @param string|null $clientTz  If null, assumed to already be UTC
+ * @param  string  $date      The date string (e.g. '2025-11-01')
+ * @param  string  $timezone  The client's timezone (default: 'UTC')
+ * @return \Carbon\Carbon     The UTC datetime at the end of the given day
+ *
+ * @throws \InvalidArgumentException If the date or timezone is invalid
  */
 if (! function_exists('endDateToUtc')) {
-    function endDateToUtc(string $date, ?string $clientTz = null): Carbon
+    function endDateToUtc(string $date, string $timezone = 'UTC'): Carbon
     {
-        $tz = $clientTz ?? 'UTC';
+        try {
+            $tz = new DateTimeZone($timezone);
+        } catch (\Exception $e) {
+            throw new InvalidArgumentException('Invalid timezone: ' . $timezone);
+        }
 
-        return Carbon::parse($date, $tz)
-            ->endOfDay()
-            ->setTimezone('UTC');
+        try {
+            $dt = new Carbon($date, $tz);
+        } catch (\Exception $e) {
+            throw new InvalidArgumentException('Invalid date: ' . $date);
+        }
+
+        return $dt->endOfDay()->setTimezone('UTC');
     }
 }
