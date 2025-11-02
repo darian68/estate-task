@@ -45,7 +45,7 @@ docker-compose exec app php artisan route:cache
 
 ## 7. Access the application
 
-* Laravel app: [http://localhost:8000](http://localhost:8000)
+* EstateTask App: [http://localhost:8000](http://localhost:8000)
 * PhpMyAdmin: [http://localhost:8089](http://localhost:8089)
 
 ---
