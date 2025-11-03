@@ -166,3 +166,13 @@ Content-Type: application/json
 
 * Make sure Docker and Docker Compose are installed on your system.
 * Ports `8000` (Laravel) and `8089` (PhpMyAdmin) can be changed in `docker-compose.yml` if needed.
+
+
+### Unit Tests
+
+* You can run the Unit tests but make sure to clear your configuration cache using the config:clear Artisan command before running
+
+```bash
+docker-compose exec app php artisan config:clear
+docker-compose exec app php artisan test 
+```
