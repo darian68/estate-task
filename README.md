@@ -8,6 +8,7 @@ Follow these steps to set up and run the application locally.
 
 ```bash
 cp .env.example .env
+cp .env.testing.example .env.testing
 ```
 
 ## 2. Build & start Docker containers
@@ -32,6 +33,7 @@ docker-compose exec app php artisan key:generate
 
 ```bash
 docker-compose exec app php artisan migrate
+docker-compose exec app php artisan migrate:fresh --env=testing
 ```
 
 ## 6. Optional: Cache configs and routes
